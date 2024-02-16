@@ -90,6 +90,47 @@ class LinkedList {
 
     }
 
+    insertAt(value, index) {
+        if (index > this.size)
+            throw new Error("Index Out of Range")
+        else if (index === 1) {
+            this.prepend(value);
+        }
+        else {
+            let curr = this.head;
+            let i = 1
+            while (i < index - 1) {
+                curr = curr.next;
+                i++;
+            }
+            const newNode = new Node(value);
+            newNode.next = curr.next;
+            curr.next = newNode;
+            this.size++;
+        }
+    }
+
+    removeAt(index) {
+        if (index === 1) {
+            this.head = this.head.next;
+            this.size--;
+        }
+        else if (index === this.size)
+            this.pop();
+        else {
+            let i = 1
+            let curr = this.head;
+            let prev = null;
+            while (i < index) {
+                prev = curr;
+                curr = curr.next;
+                i++;
+            }
+            prev.next = curr.next;
+            this.size--;
+        }
+    }
+
     Head() {
         return this.head;
     }
@@ -119,4 +160,7 @@ L.append(1)
 L.append(2)
 L.append(3)
 L.append(4)
+L.append(5)
+L.removeAt(5)
+L.prepend(0)
 L.toString()
